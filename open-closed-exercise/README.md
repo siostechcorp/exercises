@@ -1,4 +1,4 @@
-# Open-Closed Principle Exercise
+# Software Engineering Exercise
 A software engineering exercise for SIOS job applicants
 
 ## Problem
