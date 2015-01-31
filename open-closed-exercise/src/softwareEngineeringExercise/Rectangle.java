@@ -1,4 +1,4 @@
-package openClosedExercise;
+package softwareEngineeringExercise;
 
 public class Rectangle {
     private double height;

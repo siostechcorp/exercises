@@ -1,4 +1,4 @@
-package openClosedExercise;
+package softwareEngineeringExercise;
 
 public class AreaCalculator {
     public static double calculateArea(Object[] shapes) {
