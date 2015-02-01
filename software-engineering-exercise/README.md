@@ -6,7 +6,7 @@ The code in this repository is quite simple: for an array of shapes, it calculat
 
 By modifying, creating, or deleting Java files as appropriate, update the solution so that the AreaCalculator class can calculate the total area of an array of shapes without any code change to the AreaCalculator class. Feel free to change anything about the code, including method bodies, method signatures, or even class names or signatures.
 
-You are finished when the AreaCalculator class can handle any arbitrary shape. For example, if Alice were to download the source code, Alice should be able to create a Triangle class, create an array of shapes that includes an instance of the triangle class, pass in this array to the calculateArea method, and the method should correctly calculate the total area of the shape array. **Alice should not have to modify the AreaCalculator class for it to calculate the correct answer.**
+You are finished when the AreaCalculator class can handle any arbitrary shape (without any further changes to the AreaCalculator class). For example, if Alice were to download the source code, Alice should be able to create a Triangle class, create an array of shapes that includes an instance of the triangle class, pass in this array to the calculateArea method, and the method should correctly calculate the total area of the shape array. **Alice should not have to modify the AreaCalculator class for it to calculate the correct answer.**
 
 To demonstrate your code has satisfied the requirement, create a new class to represent a triangle, passing it into the calculateArea method. Again, the AreaCalculator class should not have to be changed to accept this new type of shape.
 
