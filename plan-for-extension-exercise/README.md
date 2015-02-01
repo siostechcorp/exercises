@@ -1,4 +1,4 @@
-# Plan for Extension Exercise
+# "Plan for Extension" Exercise
 A software engineering exercise for SIOS job applicants.
 
 ## Problem
