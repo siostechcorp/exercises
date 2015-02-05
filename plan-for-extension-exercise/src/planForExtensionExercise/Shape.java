@@ -1,9 +1,9 @@
 package planForExtensionExercise;
 
-public abstract class Shape {
+public interface Shape {
 
-	// Subclasses implement the following methods
-	abstract double getArea();
-	abstract double getPerimeter();
+	// Interface for implementing the following methods
+	double getArea();
+	double getPerimeter();
 
 }
