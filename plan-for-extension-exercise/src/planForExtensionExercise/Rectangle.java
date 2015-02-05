@@ -1,6 +1,6 @@
 package planForExtensionExercise;
 
-public class Rectangle extends Shape {
+public class Rectangle implements Shape {
 
 	private double height;
 	private double width;
