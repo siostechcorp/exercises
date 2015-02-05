@@ -1,6 +1,6 @@
 package planForExtensionExercise;
 
-public class Triangle extends Shape {
+public class Triangle implements Shape {
 
 	//Triangle may be scalene
 	private double side1, side2, side3;
