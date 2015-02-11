@@ -23,8 +23,7 @@ This page should have input fields for at least name and description of the row 
 As the window expands, the input area (input fields and the “OK” button) stays centered horizontally and the top and bottom areas stay proportional at 1-to-1.5 ratio. The minimum margin in the top area is 20px and 30px in the bottom area. If the user resizes the window beyond the minimum size, scrollbars appear.
 
 See redlines below:
-
-(images/login_redline.jpg "Login Redline")
+[![login redline](images/login_redline.jpg "Login Redline")]()
 
 ### Back at Home Page
 Once an edit has happened the user should see the change in the columns for the row that was edited.
