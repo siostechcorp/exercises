@@ -75,7 +75,44 @@ module.exports = function (grunt) {
         options: {
           open: true,
           middleware: function (connect) {
+            // Fancy database with all the trimmings
+            var data = [{
+              id: 1,
+              name: 'Ralph H',
+              description: '5 years old, inquisitive',
+            }, {
+              id: 2,
+              name: 'Ada H',
+              description: '2 years old, rambunctious'
+            }];
             return [
+              connect().use('/data', function(req, res) {
+                var datum = data;
+                var id = req.url.slice(1);
+
+                res.setHeader('Content-Type', 'application/json');
+
+                switch (req.method) {
+                case 'GET':
+                  if (id) {
+                    datum = data[id - 1];
+                  }
+                  res.end(JSON.stringify(datum));
+                  break;
+                case 'PATCH':
+                  var body = '';
+                  req.on('data', function(chunk) {
+                    body += chunk;
+                  });
+                  req.on('end', function() {
+                    data[id - 1] = JSON.parse(body);
+                    res.end('"success"');
+                  });
+                  break
+                default:
+                  res.end('NOPE');
+                }
+              }),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',

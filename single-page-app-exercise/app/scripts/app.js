@@ -17,17 +17,19 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngGrid',
+    'restangular'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/home.html',
+        controller: 'HomeCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .when('/:id', {
+        templateUrl: 'views/edit.html',
+        controller: 'EditCtrl'
       })
       .otherwise({
         redirectTo: '/'
