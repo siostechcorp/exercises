@@ -10,6 +10,8 @@
   "strict": true,
   "undef": true,
   "unused": true,
+  "quotmark": "single",
+  "indent": 4,
   "globals": {
     "angular": false
   }
