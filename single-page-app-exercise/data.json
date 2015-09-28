@@ -1,0 +1,64 @@
+{
+  "thingy": [
+    {
+      "id": 0,
+      "name": "Samual Adams Boston Lager",
+      "Description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex."
+    },
+    {
+      "id": 1,
+      "name": "Stone Ruination",
+      "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma."
+    },
+    {
+      "id": 2,
+      "name": "New Belgium Lips of Faith - Gruit ",
+      "description": "Experimentation doesn’t mean new. With our Gruit, the latest Lips of Faith release, it’s all about revisiting the ancient craft of bittering with herb mixtures, not hops."
+    },
+    {
+      "id": 3,
+      "name": "Wychwood Hobgoblin",
+      "description": "Strong in roasted malt with a moderate hoppy bitterness and slight fruity character that lasts through to the end."
+    },
+    {
+      "id": 4,
+      "name": "River Dog Virgil’s Boxcar Saison",
+      "description": "Virgil Kaine Ginger Infused Bourbon, together with River Dog Brewing Co., announced the launch of a collaborative craft microbrew, Virgil’s Boxcar Saison."
+    },
+    {
+      "id": 5,
+      "name": "Holy City / RJ Rockers Half Calf ",
+      "description": "We’ve collaborated with our upstate buddies at RJ Rockers twice before, producing Stuck on Rye 26 at their brewery and then Holy Citra, RJ! at ours."
+    },
+    {
+      "id": 6,
+      "name": "Factory Method",
+      "description": "Define an interface for creating a single object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses"
+    },
+    {
+      "id": 7,
+      "name": "Singleton",
+      "description": "Ensure a class has only one instance, and provide a global point of access to it."
+    },
+    {
+      "id": 8,
+      "name": "Composite",
+      "description": "Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly."
+    },
+    {
+      "id": 9,
+      "name": "Iterator",
+      "description": "Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation."
+    },
+    {
+      "id": 10,
+      "name": "Null Object",
+      "description": "Avoid null references by providing a default object."
+    },
+    {
+      "id": 11,
+      "name": "Linux",
+      "description": "Do you terminal?"
+    }
+  ]
+}
