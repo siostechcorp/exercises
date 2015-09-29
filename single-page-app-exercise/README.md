@@ -19,7 +19,7 @@ Required For Backend:
 
 ### Browsers
 
-The developer should choose at least 2 browsers to developed against. The app must work in at least those 2 browsers.
+The developer should choose at least 2 browsers to developed against. The webapp must work in at least those 2 browsers.
 
 - Any version of IE
 - Chrome
@@ -27,11 +27,11 @@ The developer should choose at least 2 browsers to developed against. The app mu
 
 ### Running Backend
 
-- Run `grunt server`
+- Run `grunt serve`
 - Open browser of choice
-- Navigate to `http://localhost:9443`
-- The API URL to GET is `http://localhost:9443/stuff`
-- The API URL to PATCH is `http://localhost:9443/stuff/123`, where 123 is the ID
+- Navigate to `http://localhost:9000`
+- The API URL to GET is `http://localhost:3000/stuff`
+- The API URL to PATCH is `http://localhost:3000/stuff/123`, where 123 is the ID
 
 
 ## Submission
