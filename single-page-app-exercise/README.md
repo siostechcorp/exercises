@@ -1,31 +1,102 @@
-## Post Interview Challenge
+# Post Interview Challenge
 
-### Purpose:
-Create a single-page webapp that meets all the stated requirements and industry standards of code quality and design patterns. The webapp must be implemented using the Angular JS framework, and be able to run on recent versions of IE, Google Chrome, and Mozilla Firefox. The final app needs to be delivered in an all inclusive package (zip file for example or from a GitHub repo if you want) with all relevant code and scripts.
+## Purpose:
+Create a single-page webapp that meets all the stated requirements and industry standards of code quality and design patterns. The webapp must be implemented using the AngularJS framework and run on the included webserver (launched using grunt server)
 
-### Required Libraries
+## Required Technologies and Libraries
 
+JavaScript libraries:
 - AngularJS
-- ng-grid
+- ui-grid (ng-grid)
 - Restangular
+- (Optional) lodash.js/undercore.js
+- (Optional) momentjs
+- (Optional) Bootstrap
 
-### Home Page
-When launched the user should be brought to a grid (implemented using the ng-grid directive) with several rows of objects (can be whatever you want, your favorite video game for example). The only required fields are a name and a description.
+Required For Backend:
 
-The data needs to be fetched using a GET request to backend (maybe one of NodeJS's simple backend solutions, or maybe something written in PHP) using Restangular's GET request method . Once fetched the grid should be populated with that data.
+- NodeJS
 
-The user can select and deselect a row and then can Edit button for details of that object. There should be a button at the top of the home page that launches the "Edit" page defined below.
+### Browsers
+
+The developer should choose at least 2 browsers to developed against. The app must work in at least those 2 browsers.
+
+- Any version of IE
+- Chrome
+- FireFox
+
+### Running Backend
+
+- Run `grunt server`
+- Open browser of choice
+- Navigate to `http://localhost:9443`
+- The API URL to GET is `http://localhost:9443/stuff`
+- The API URL to PATCH is `http://localhost:9443/stuff/123`, where 123 is the ID
+
+
+## Submission
+
+- The challenge should be finished within 5 business days of the interview (since emailed)
+- Minimal requirement is to provide as a ZIP file in an email
+- Optionally, can provide as a Github pull request
+
+## Requirements
+
+The following requirements should be meet with the webapp. There will be 2 pages the user can interact with, the "LIST" page and "EDIT" page.
+
+- Provide a README.md file
+- README should describe basic instructions and which browsers the webapp is tested against
+
+### List Page
+The list page will need to use a GET to fetch the data from the provided backend (using Restangular) and display it in the grid (implemented in ui-grid). Each of the following columns should be shown:
+
+- Name
+- Description
+- Last Time Edited (Displayed in the following format: "Jan 22, 2015 5:12:11")
+
+Note the edited time will be in a field called "timeStamp" and will be an UNIX format timeStamp.
+
+### Accessing the Edit Page
+
+From the list page, the user must be able to select and deselect each row. When a row is selected, a button located above the grid should be enabled. Once the user presses that button, the user is taken to the "EDIT" page. When navigating to the edit page, the URL should contain the ID of the selected field.
+
+The selected row's data should be preserved and available to the edit page.
 
 ### Edit Page
-This page should have input fields for at least name and description of the row selected by the user. Each input field should be populated with the selected row's data (such as name/description and any other fields you want). The user can then edit an input field, press the "OK" button, and return to the home page. Any changes should be sent to the backend using Restangular's PATCH request.
 
-### Responsiveness requirements for the Edit Page
-As the window expands, the input area (input fields and the “OK” button) stays centered horizontally and the top and bottom areas stay proportional at 1-to-1.5 ratio. The minimum margin in the top area is 20px and 30px in the bottom area. If the user resizes the window beyond the minimum size, scrollbars appear.
+The input fields should be pre-populated with the data from the user's selected field.
 
-See redlines below:
-[![login redline](images/login_redline.jpg "Login Redline")]()
+The following input fields need to be available for the user to edit:
 
-### Back at Home Page
-Once an edit has happened the user should see the change in the columns for the row that was edited.
+- Name
+- Description
+
+The following buttons should be placed above the input fields:
+
+- OK (Updates backend with changes and returns user to list page)
+- Cancel (Cancels all edits and returns user to list page)
+
+When user hits "OK" button, a PATCH request should be sent to the backend with the updated name, description, and timeStamp.
+
+### Returning to List Page
+
+Each time the user returns to the list page, the data must be updated with any changes. Including the onces just made in the edit page.
 
 
+### Responsiveness
+
+The list and edit pages should be centered and scale well.
+
+## Code Quality Standards
+
+### Expectations
+
+- Use 4 spaces and no tabs
+- Follow AngularJS best practices
+- Variables/Services/Functions should be named well and meaningful
+- Templates should not be done inline, they should be in separate files
+
+### File Layout and Naming
+
+- Code should be organized and follow AngularJs naming conventions
+- Use the provided folder structure as your scaffolding
