@@ -42,7 +42,7 @@ The developer should choose at least 2 browsers to developed against. The webapp
 
 ## Requirements
 
-The following requirements should be meet with the webapp. There will be 2 pages the user can interact with, the "LIST" page and "EDIT" page.
+There will be 2 pages the user can interact with, the "LIST" page and "EDIT" page.
 
 - Provide a README.md file
 - README should describe basic instructions and which browsers the webapp is tested against
@@ -54,7 +54,7 @@ The list page will need to use a GET to fetch the data from the provided backend
 - Description
 - Last Time Edited (Displayed in the following format: "Jan 22, 2015 5:12:11")
 
-Note the edited time will be in a field called "timeStamp" and will be an UNIX format timeStamp.
+Note the edited time will be in a field called "timeStamp" and will be a UNIX format timeStamp.
 
 ### Accessing the Edit Page
 
@@ -80,8 +80,7 @@ When user hits "OK" button, a PATCH request should be sent to the backend with t
 
 ### Returning to List Page
 
-Each time the user returns to the list page, the data must be updated with any changes. Including the onces just made in the edit page.
-
+Each time the user returns to the list page, the data must be updated with any changes, Including the ones just made in the edit page.
 
 ### Responsiveness
 
@@ -92,11 +91,12 @@ The list and edit pages should be centered and scale well.
 ### Expectations
 
 - Use 4 spaces and no tabs
+- All code should pass jshint
 - Follow AngularJS best practices
 - Variables/Services/Functions should be named well and meaningful
 - Templates should not be done inline, they should be in separate files
 
 ### File Layout and Naming
 
-- Code should be organized and follow AngularJs naming conventions
+- Code should be organized and follow AngularJS naming conventions
 - Use the provided folder structure as your scaffolding
