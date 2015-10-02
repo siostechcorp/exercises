@@ -13,6 +13,9 @@
   "quotmark": "single",
   "indent": 4,
   "globals": {
-    "angular": false
+    "angular": false,
+    "$": false,
+    "singlePageAppExerciseApp": true,
+    "FastClick": true
   }
 }

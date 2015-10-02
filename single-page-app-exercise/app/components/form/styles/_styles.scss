@@ -1,0 +1,75 @@
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// Forms
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Inputs
+#{$text-input-selectors} {
+	line-height: 1.5;
+	&.radius {
+		@include border-radius($global-radius);
+		&.left-radius {
+			@include border-radius(0);
+			@include border-left-radius($global-radius);
+		}
+		&.bottom-radius {
+			@include border-radius(0);
+			@include border-bottom-radius($global-radius);
+		}
+		&.right-radius {
+			@include border-radius(0);
+			@include border-right-radius($global-radius);
+		}
+		&.top-radius {
+			@include border-radius(0);
+			@include border-top-radius($global-radius);
+		}
+	}
+	&.no-radius {
+		@include border-radius(0);
+	}
+	&.form-control {
+		margin: 0;
+		@include border-radius($global-radius);
+	}
+}
+
+// Errors
+label.error {
+	color: $alert-color;
+	@include transition(color 350ms ease-out);
+	// Inputs
+	#{$text-input-selectors} {
+		background: lighten($alert-color, 35);
+		border-color: $alert-color;
+		@include border-radius(0);
+		@include border-top-radius($global-radius);
+		color: $alert-color;
+		@include transition(background 350ms ease-out);
+		&:focus {
+			background: $input-background-focus;
+		}
+	}
+	// Messages
+	.form-error.ng-active {
+		margin-top: -1rem;
+		margin-bottom: 1rem;
+		padding: 6px 10px 8px 10px;
+		background: $alert-color;
+		@include border-bottom-radius($global-radius);
+		color: #ffffff;
+		font-size: 12px;
+		font-style: italic;
+	}
+}
+
+// Bootstap sr-only
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0;
+}

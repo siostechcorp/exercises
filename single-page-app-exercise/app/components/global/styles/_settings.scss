@@ -1,0 +1,57 @@
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// Global
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// These are defined here in pixel values in order to keep compass from showing warnings in the grunt build
+$base-font-size: 16px;
+$base-line-height: 24px;
+$rem-base: $base-font-size;
+
+// Roboto - Google Fonts
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic);
+
+// Font Awesome font page
+$fa-font-path: "https://netdna.bootstrapcdn.com/font-awesome/4.4.0/fonts";
+
+// Body
+$body-background: #d2d3d5;
+$body-font-family: "Roboto", Arial, sans-serif;
+
+// Application colors
+$primary-color: #004669;
+$secondary-color: #3498db;
+$alert-color: #e64c3c;
+$info-color: #9C27B0;
+$success-color: #8cc640;
+$warning-color: #eab545;
+$dark-color: #263238;
+$gray: #F2F2F2;
+$gray-light: lighten($gray, 8);
+$gray-dark: darken($gray, 8);
+$gray-dark-2x: darken($gray, 16);
+
+// Border radiuses
+$global-radius: 4px;
+
+// Bootstrap specifics
+$bootstrap-sass-asset-helper: false;
+// icons
+$icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../fonts/bootstrap/");
+$icon-font-name: "glyphicons-halflings-regular";
+$icon-font-svg-id: "glyphicons_halflingsregular";
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// 4. Typography
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+$small-font-size: 75%;
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// 6. Buttons
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+$button-radius: $global-radius;
+$button-opacity-disabled: 0.5;
+$button-tag-selector: true;

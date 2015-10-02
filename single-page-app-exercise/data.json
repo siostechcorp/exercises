@@ -2,15 +2,15 @@
   "thingy": [
     {
       "id": 0,
-      "name": "Samual Adams Boston Lager",
-      "Description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.",
+      "name": "Samual Adams Boston Lagers",
+      "description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.",
       "timeStamp": 1443533486
     },
     {
       "id": 1,
       "name": "Stone Ruination",
-      "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma.",
-      "timeStamp": 1443533486
+      "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma. Sounds tasty.",
+      "timeStamp": 1443673531
     },
     {
       "id": 2,
@@ -38,13 +38,13 @@
     },
     {
       "id": 6,
-      "name": "Factory Method",
+      "name": "Factory Methods",
       "description": "Define an interface for creating a single object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses",
-      "timeStamp": 1443533486
+      "timeStamp": 1443676395
     },
     {
       "id": 7,
-      "name": "Singleton",
+      "name": "Doubletons",
       "description": "Ensure a class has only one instance, and provide a global point of access to it.",
       "timeStamp": 1443533486
     },
@@ -56,9 +56,9 @@
     },
     {
       "id": 9,
-      "name": "Iterator",
+      "name": "Iterator over",
       "description": "Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.",
-      "timeStamp": 1443533486
+      "timeStamp": 1443672953
     },
     {
       "id": 10,
@@ -69,8 +69,8 @@
     {
       "id": 11,
       "name": "Linux",
-      "description": "Do you terminal?",
-      "timeStamp": 1443533486
+      "description": "Yes I terminal!!",
+      "timeStamp": 1443673432
     }
   ]
 }

@@ -1,0 +1,44 @@
+<div class="grid-frame">
+    <div class="grid-block main-block">
+        <div class="grid-container main-container">
+
+            <!-- Loader -->
+            <content-loader ng-show="edit.ui.showLoader"></content-loader>
+            <!-- End Loader -->
+
+            <!-- Content -->
+            <div class="grid-content content" ng-show="edit.ui.showContent">
+
+                <!-- Notifications -->
+                <zf-notification-set id="notifications" position="top-left"></zf-notification-set>
+                <!-- End Notifications -->
+
+                <!-- Header -->
+                <div class="grid-block">
+                    <div class="grid-content">
+                        <h2 class="medium-margin-bottom">Edit the Thingy!</h2>
+                    </div>
+                    <div class="grid-content text-right fx-fade-normal">
+                        <a class="button header-button alert" ui-sref="list">Back to List</a>
+                    </div>
+                </div>
+                <!-- End Header -->
+
+                <!-- Form -->
+                <dynamic-form name="edit.form.name" template="edit.form.template" ng-model="edit.form.model.edit" novalidate ng-submit="edit.save.exec()"></dynamic-form>
+                <!-- End Form -->
+
+            </div>
+            <!-- End Content -->
+
+            <!-- Error -->
+            <content-error ng-show="edit.ui.showError"></content-error>
+            <!-- End Error -->
+
+            <!-- Footer -->
+            <footer ng-show="edit.ui.showContent || edit.ui.showError"></footer>
+            <!-- End Footer -->
+
+        </div>
+    </div>
+</div>
