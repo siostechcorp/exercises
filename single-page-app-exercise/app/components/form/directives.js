@@ -1,6 +1,8 @@
 'use strict';
 
-singlePageAppExerciseApp.directive('dynamicForm', function($q, $parse, $http, $templateCache, $compile, $document, $timeout, browserInfo){
+angular.module('singlePageAppExerciseApp')
+
+.directive('dynamicForm', function($q, $parse, $http, $templateCache, $compile, $document, $timeout, browserInfo){
     var supported = {
         // Text-based elements
         'text': { element: 'input', type: 'text', editable: true, textBased: true },
@@ -437,6 +439,25 @@ singlePageAppExerciseApp.directive('dynamicForm', function($q, $parse, $http, $t
                     element.replaceWith(newElement);
                 });
             }
+        }
+    };
+})
+
+.directive('input', function(){
+    return {
+        restrict: 'E',
+        require: '?ngModel',
+        link: function(scope, element, attrs, ctrl){
+
+            // Return if input does not have ngModel
+            if(!ctrl){ return null; }
+
+            // Set parsers
+            ctrl.$parsers.push(function(viewValue){
+                if('text' === attrs.type && '' === viewValue){ return null; }
+                return viewValue;
+            });
+
         }
     };
 });

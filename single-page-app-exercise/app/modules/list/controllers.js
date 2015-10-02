@@ -1,6 +1,8 @@
 'use strict';
 
-singlePageAppExerciseApp.controller('ListCtrl', function($scope, $moment, $timeout, $window, Restangular){
+angular.module('singlePageAppExerciseApp')
+
+.controller('ListCtrl', function($scope, $moment, $timeout, $window, Restangular){
 
     // Define possible error
     $scope.error = null;

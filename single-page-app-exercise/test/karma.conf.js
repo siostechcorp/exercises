@@ -110,6 +110,9 @@ module.exports = function(config){
 
 			// Application code
 			'app/components/app.js',
+			'app/components/global/configs.js',
+			'app/components/global/runs.js',
+			'app/modules/list/controllers.js',
 
 			// App HTML & CSS
 			// injector:html

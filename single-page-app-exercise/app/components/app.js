@@ -1,7 +1,6 @@
 'use strict';
-/* exported singlePageAppExerciseApp */
 
-var singlePageAppExerciseApp = angular.module('singlePageAppExerciseApp', [
+angular.module('singlePageAppExerciseApp', [
     'ngAnimate',
     'ngAria',
     'ngCookies',

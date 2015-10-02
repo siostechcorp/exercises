@@ -1,6 +1,8 @@
 'use strict';
 
-singlePageAppExerciseApp.factory('$edit', function(){
+angular.module('singlePageAppExerciseApp')
+
+.factory('$edit', function(){
 
 	// API of factory
 	var factory = {

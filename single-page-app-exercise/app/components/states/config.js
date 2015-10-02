@@ -1,6 +1,8 @@
 'use strict';
 
-singlePageAppExerciseApp.config(function($stateProvider, $urlRouterProvider){
+angular.module('singlePageAppExerciseApp')
+
+.config(function($stateProvider, $urlRouterProvider){
 
     // For any unmatched URL, reroute to /
     $urlRouterProvider.otherwise('/');

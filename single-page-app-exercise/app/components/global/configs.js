@@ -1,12 +1,14 @@
 'use strict';
 
+angular.module('singlePageAppExerciseApp')
+
 // Configure angular loading bar
-singlePageAppExerciseApp.config(function(cfpLoadingBarProvider){
+.config(function(cfpLoadingBarProvider){
     cfpLoadingBarProvider.includeSpinner = false;
-});
+})
 
 // Configure IE fix for form handling
-singlePageAppExerciseApp.config(['$provide', function($provide){
+.config(['$provide', function($provide){
     $provide.decorator('$sniffer', ['$delegate', function($sniffer){
         var msie = angular.lowercase(navigator.userAgent).indexOf('trident') > -1 || angular.lowercase(navigator.userAgent).indexOf('msie') > -1;
         var _hasEvent = $sniffer.hasEvent;
@@ -16,14 +18,14 @@ singlePageAppExerciseApp.config(['$provide', function($provide){
         };
         return $sniffer;
     }]);
-}]);
+}])
 
 // Configure Restangular
-singlePageAppExerciseApp.config(function(RestangularProvider){
+.config(function(RestangularProvider){
     RestangularProvider.setBaseUrl('http://localhost:3000/');
-});
+})
 
 // Configure material design theme
-singlePageAppExerciseApp.config(function($mdThemingProvider) {
+.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default').primaryPalette('red');
 });

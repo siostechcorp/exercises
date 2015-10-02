@@ -1,6 +1,8 @@
 'use strict';
 
-singlePageAppExerciseApp.controller('EditCtrl', function($scope, $edit, $state, $stateParams, $moment, Restangular, NotificationFactory){
+angular.module('singlePageAppExerciseApp')
+
+.controller('EditCtrl', function($scope, $edit, $state, $stateParams, $moment, Restangular, NotificationFactory){
 
 	// Define possible error
 	$scope.getError = null;

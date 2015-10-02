@@ -1,6 +1,8 @@
 'use strict';
 
-singlePageAppExerciseApp.directive('footer', function(){
+angular.module('singlePageAppExerciseApp')
+
+.directive('footer', function(){
 	return {
 		restrict: 'E',
 		templateUrl: 'components/footer/templates/footer.html',
