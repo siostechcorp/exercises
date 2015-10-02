@@ -217,6 +217,9 @@ describe('ListCtrl', function(){
                     var controller = createController();
                     spyOn(scope.list, 'init').and.callThrough();
                     spyOn(scope.list.get, 'exec').and.callThrough();
+                    spyOn(Restangular, 'all').and.callThrough();
+                    spyOn(scope.list.get, 'success').and.callThrough();
+                    spyOn(scope.list.get, 'fail').and.callThrough();
                     scope.list.init();
                 });
 
@@ -225,32 +228,31 @@ describe('ListCtrl', function(){
                     expect(angular.isFunction(scope.list.get.exec)).toBe(true);
                 });
 
-                it('should have been called and then called a Restangular getList, which if successful calls $scope.list.get.success with the requested data', function(){
+                it('should have been called and then called a Restangular getList, which if success calls $scope.list.get.success with the requested data', function(){
 
                     expect(scope.list.get.exec).toHaveBeenCalled();
-                    spyOn(Restangular, 'all').and.callThrough();
 
-                    var mockToRespond = {
-                        "thingy": [
-                            {
-                                "id": 0,
-                                "name": "Samual Adams Boston Lagers",
-                                "description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.",
-                                "timeStamp": 1443533486
-                            },
-                            {
-                                "id": 1,
-                                "name": "Stone Ruination",
-                                "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma. Sounds tasty.",
-                                "timeStamp": 1443673531
-                            }
-                        ]
-                    };
-                    $httpBackend.expectGET('thingy').respond(mockToRespond);
+                    var mockToRespond = [
+                        {
+                            "id": 0,
+                            "name": "Samual Adams Boston Lagers",
+                            "description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.",
+                            "timeStamp": 1443533486
+                        },
+                        {
+                            "id": 1,
+                            "name": "Stone Ruination",
+                            "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma. Sounds tasty.",
+                            "timeStamp": 1443673531
+                        }
+                    ];
+
+                    $httpBackend.when('GET', 'http://localhost:3000/thingy').respond(mockToRespond);
                     expect(Restangular.all).toHaveBeenCalledWith('thingy');
 
-                    spyOn(scope.list.get, 'success').and.callThrough();
-                    expect(scope.list.get.success).toHaveBeenCalledWith(mockToRespond);
+                    $httpBackend.flush();
+
+                    expect(scope.list.get.success).toHaveBeenCalledWith(Restangular.restangularizeElement(mockToRespond));
 
                 });
 
