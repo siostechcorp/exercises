@@ -14,7 +14,7 @@ angular.module('singlePageAppExerciseApp')
         init: function(){
 
             // Get the list data
-            $scope.list.get.exec();
+            $scope.list.get();
 
         },
 
@@ -44,54 +44,47 @@ angular.module('singlePageAppExerciseApp')
         },
 
         // Get
-        get: {
+        get: function(){
 
-            // Execute
-            exec: function(){
+            // Make call to json file
+            Restangular.all('thingy').getList().then(
 
-                // Make call to json file
-                Restangular.all('thingy').getList().then(function(data){
-                    $scope.list.get.success(data);
-                }, function(error){
-                    $scope.list.get.fail(error);
-                });
+                // Success
+                function(data){
 
-            },
+                    // Modify data timeStamps
+                    angular.forEach(data, function(item){
+                        item.timeStamp = $moment(item.timeStamp * 1000).toDate();
+                    });
 
-            // Success
-            success: function(data){
+                    // Set data
+                    $scope.list.grid.data = Restangular.copy(data);
 
-                // Modify data timeStamps
-                angular.forEach(data, function(item){
-                    item.timeStamp = $moment(item.timeStamp * 1000).toDate();
-                });
+                    // Set UI
+                    $scope.list.ui.showLoader = false;
+                    $scope.list.ui.showContent = true;
 
-                // Set data
-                $scope.list.grid.data = Restangular.copy(data);
+                    // Fix ui-grid layout issue
+                    $timeout(function(){
+                        $(window).resize();
+                        $(window).resize();
+                    },100);
 
-                // Set UI
-                $scope.list.ui.showLoader = false;
-                $scope.list.ui.showContent = true;
+                },
 
-                // Fix ui-grid layout issue
-                $timeout(function(){
-                    $(window).resize();
-                    $(window).resize();
-                },100);
+                // Fail
+                function(error){
 
-            },
+                    // Set error
+                    $scope.error = angular.copy(error);
 
-            // Fail
-            fail: function(error){
+                    // Set UI
+                    $scope.list.ui.showLoader = false;
+                    $scope.list.ui.showError = true;
 
-                // Set error
-                $scope.error = angular.copy(error);
+                }
 
-                // Set UI
-                $scope.list.ui.showLoader = false;
-                $scope.list.ui.showError = true;
-
-            }
+            );
 
         },
 

@@ -277,7 +277,7 @@ module.exports = function (grunt) {
             return '\'' + filePath + '\',';
           },
           starttag: '// injector:html',
-          endtag: '// endinjector'
+          endtag: '// endinjector:html'
         },
         files: {
           'test/karma.conf.js': [
@@ -462,13 +462,18 @@ module.exports = function (grunt) {
       main: {
         cwd: '<%= yeoman.app %>',
         src: '{components,modules}/**/*.html',
-        dest: '.tmp/templates.js'
+        dest: '.tmp/templates.js',
+        options: {
+          url: function(url){
+            return url.replace('/foundation-apps', '');
+          }
+        }
       },
-      foundation: {
-        cwd: 'bower_components/foundation-apps/js/angular',
-        src: 'components/**/*.html',
-        dest: '.tmp/foundation-templates.js'
-      }
+      // foundation: {
+      //   cwd: 'bower_components/foundation-apps/js/angular',
+      //   src: 'components/**/*.html',
+      //   dest: '.tmp/foundation-templates.js'
+      // }
     },
 
     // ng-annotate tries to make the code safe for minification automatically
@@ -493,6 +498,17 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      foundation: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/foundation-apps/js/angular/components',
+          dest: '<%= yeoman.app %>/components/foundation-apps',
+          src: [
+            '**/*.html'
+          ]
+        }]
+      },
       dist: {
         files: [{
           expand: true,
@@ -557,6 +573,7 @@ module.exports = function (grunt) {
       'wiredep',
       'injector:settingsSass',
       'injector:stylesSass',
+      'copy:foundation',
       'concurrent:server',
       'injector:scripts',
       'connect:livereload',
@@ -574,6 +591,7 @@ module.exports = function (grunt) {
     'wiredep',
     'injector:settingsSass',
     'injector:stylesSass',
+    'copy:foundation',
     'concurrent:test',
     'injector:scripts',
     'injector:scriptsTest',

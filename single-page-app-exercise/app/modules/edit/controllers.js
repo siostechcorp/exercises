@@ -8,9 +8,6 @@ angular.module('singlePageAppExerciseApp')
 	$scope.getError = null;
 	$scope.saveError = null;
 
-	// Notification set
-	var notifSet;
-
 	// Define edit
 	$scope.edit = {
 
@@ -18,10 +15,10 @@ angular.module('singlePageAppExerciseApp')
 		init: function(){
 
 			// Get the data item
-			$scope.edit.get.exec();
+			$scope.edit.get();
 
 			// Initialize the notification set
-			notifSet = new NotificationFactory({
+			$scope.notifSet = new NotificationFactory({
 				position: 'top-right'
 			});
 
@@ -54,96 +51,85 @@ angular.module('singlePageAppExerciseApp')
 		},
 
 		// Get
-		get: {
+		get: function(){
 
-			// Execute
-			exec: function(){
+			// Make call to json file
+			Restangular.one('thingy', $stateParams.itemId).get().then(
 
-				// Make call to json file
-				Restangular.one('thingy', $stateParams.itemId).get().then(function(data){
-					$scope.edit.get.success(data);
-				}, function(error){
-					$scope.edit.get.fail(error);
-				});
+				// Success
+				function(data){
 
-			},
+					// Modify data timeStamp
+					data.timeStamp = $moment(data.timeStamp * 1000).toDate();
 
-			// Success
-			success: function(data){
+					// Set data
+	                $scope.edit.form.model.master = Restangular.copy(data);
+	                $scope.edit.form.model.edit = Restangular.copy(data);
 
-				// Modify data timeStamp
-				data.timeStamp = $moment(data.timeStamp * 1000).toDate();
+	                // Set UI
+	                $scope.edit.ui.showLoader = false;
+	                $scope.edit.ui.showContent = true;
 
-				// Set data
-                $scope.edit.form.model.master = Restangular.copy(data);
-                $scope.edit.form.model.edit = Restangular.copy(data);
+				},
 
-                // Set UI
-                $scope.edit.ui.showLoader = false;
-                $scope.edit.ui.showContent = true;
+				// Fail
+				function(error){
 
-			},
+                    // Set error
+                    $scope.getError = angular.copy(error);
 
-			// Fail
-			fail: function(error){
+                    // Set UI
+                    $scope.edit.ui.showLoader = false;
+                    $scope.edit.ui.showError = true;
 
-                // Set error
-                $scope.getError = angular.copy(error);
+				}
 
-                // Set UI
-                $scope.edit.ui.showLoader = false;
-                $scope.edit.ui.showError = true;
-
-            }
+			);
 
 		},
 
 		// Save
-		save: {
+		save: function(){
 
-			// Execute
-			exec: function(){
+			// Update timeStamp
+			$scope.edit.form.model.edit.timeStamp = $moment().unix();
 
-				// Update timeStamp
-				$scope.edit.form.model.edit.timeStamp = $moment().unix();
+			// Make call to json file
+			$scope.edit.form.model.edit.patch().then(
 
-				// Make call to json file
-				$scope.edit.form.model.edit.patch().then(function(){
-					$scope.edit.save.success();
-				}, function(error){
-					$scope.edit.save.fail(error);
-				});
+                // Success
+                function(){
 
-			},
+                	// Set form to clean
+                	$scope.edit.form.name.$setPristine();
 
-			// Success
-			success: function(){
+                    // Add success notification
+                    $scope.notifSet.addNotification({
+                        title: 'Thingy success!',
+                        content: 'Your thingy has been successfully updated.',
+                        color: 'success',
+                        autoclose: '3000'
+                    });
 
-				// Add success notification
-				notifSet.addNotification({
-					title: 'Thingy success!',
-					content: 'Your thingy has been successfully updated.',
-					color: 'success',
-					autoclose: '3000'
-				});
+				},
 
-			},
+                // Fail
+                function(error){
 
-			// Fail
-			fail: function(error){
+                    // Set error
+                    $scope.saveError = angular.copy(error);
 
-				// Set error
-				$scope.saveError = angular.copy(error);
+                    // Add success notification
+                    $scope.notifSet.addNotification({
+                        title: 'Thingy fail!',
+                        content: 'Your thingy update failed. Sorry.',
+                        color: 'alert',
+                        autoclose: '3000'
+                    });
 
-				// Add success notification
-				notifSet.addNotification({
-					title: 'Thingy fail!',
-					content: 'Your thingy update failed. Sorry.',
-					color: 'alert',
-					autoclose: '3000'
-				});
+				}
 
-			}
+            );
 
 		}
 

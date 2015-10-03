@@ -2,21 +2,21 @@
   "thingy": [
     {
       "id": 0,
-      "name": "Samual Adams Boston Lagers",
+      "name": "Samual Adams Boston Lager",
       "description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.",
-      "timeStamp": 1443533486
+      "timeStamp": 1443855220
     },
     {
       "id": 1,
-      "name": "Stone Ruination",
+      "name": "Stone Ruinations",
       "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma. Sounds tasty.",
-      "timeStamp": 1443673531
+      "timeStamp": 1443859059
     },
     {
       "id": 2,
-      "name": "New Belgium Lips of Faith - Gruit ",
+      "name": "New Belgium Lips of Faith - Gruits",
       "description": "Experimentation doesn’t mean new. With our Gruit, the latest Lips of Faith release, it’s all about revisiting the ancient craft of bittering with herb mixtures, not hops.",
-      "timeStamp": 1443533486
+      "timeStamp": 1443855319
     },
     {
       "id": 3,
@@ -44,9 +44,9 @@
     },
     {
       "id": 7,
-      "name": "Doubletons",
+      "name": "Doubleton",
       "description": "Ensure a class has only one instance, and provide a global point of access to it.",
-      "timeStamp": 1443533486
+      "timeStamp": 1443859119
     },
     {
       "id": 8,
@@ -56,9 +56,9 @@
     },
     {
       "id": 9,
-      "name": "Iterator over",
-      "description": "Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.",
-      "timeStamp": 1443672953
+      "name": "Iterator over and over",
+      "description": "Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation, and another.",
+      "timeStamp": 1443833200
     },
     {
       "id": 10,

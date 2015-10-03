@@ -28,6 +28,16 @@ describe('ListCtrl', function(){
         expect(controller).toBeDefined();
     });
 
+    describe('$scope.error', function(){
+
+        it('should be defined and be null', function(){
+            var controller = createController();
+            expect(scope.error).toBeDefined();
+            expect(scope.error).toBeNull();
+        });
+
+    });
+
     describe('$scope.list', function(){
 
         it('should be defined and be an object', function(){
@@ -41,7 +51,7 @@ describe('ListCtrl', function(){
             beforeEach(function(){
                 var controller = createController();
                 spyOn(scope.list, 'init').and.callThrough();
-                spyOn(scope.list.get, 'exec').and.callThrough();
+                spyOn(scope.list, 'get').and.callThrough();
                 scope.list.init();
             });
 
@@ -54,8 +64,8 @@ describe('ListCtrl', function(){
                 expect(scope.list.init).toHaveBeenCalled();
             });
 
-            it('should have also called the scope.list.get.exec function', function(){
-                expect(scope.list.get.exec).toHaveBeenCalled();
+            it('should have also called the scope.list.get function', function(){
+                expect(scope.list.get).toHaveBeenCalled();
             });
 
         });
@@ -203,57 +213,119 @@ describe('ListCtrl', function(){
         describe('$scope.list.get', function(){
 
             beforeEach(function(){
+
+                var controller = createController();
+
+                spyOn(scope.list, 'init').and.callThrough();
+                spyOn(scope.list, 'get').and.callThrough();
+                spyOn(Restangular, 'all').and.callThrough();
+
+                scope.list.init();
+
+            });
+
+            it('should be defined and be a function', function(){
+                expect(scope.list.get).toBeDefined();
+                expect(angular.isFunction(scope.list.get)).toBe(true);
+            });
+
+            it('should have been called and then called a Restangular getList and handle success or error', function(done){
+
+                var mockToRespond = [
+                    {
+                        'id': 0,
+                        'name': 'Samual Adams Boston Lagers',
+                        'description': 'Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.',
+                        'timeStamp': 1443533486
+                    }
+                ];
+
+                $httpBackend.when('GET', 'http://localhost:3000/thingy').respond(mockToRespond);
+                $httpBackend.expectGET('http://localhost:3000/thingy');
+
+                expect(scope.list.get).toHaveBeenCalled();
+
+                Restangular.all('thingy').getList()
+                    .then(function(data){
+
+                        spyOn(Restangular, 'stripRestangular').and.callThrough();
+                        expect(Restangular.stripRestangular(data)).toEqual(mockToRespond);
+
+                        angular.forEach(mockToRespond, function(item){
+                            item.timeStamp = $moment(item.timeStamp * 1000).toDate();
+                        });
+
+                        expect(Restangular.stripRestangular(scope.list.grid.data)).toEqual(mockToRespond);
+
+                        expect(scope.list.ui.showLoader).toBe(false);
+                        expect(scope.list.ui.showContent).toBe(true);
+
+                    })
+                    .catch(function(error){
+
+                        expect(scope.error).toEqual(error);
+
+                        expect(scope.list.ui.showLoader).toBe(false);
+                        expect(scope.list.ui.showError).toBe(true);
+
+                    })
+                    .finally(done);
+
+                $httpBackend.flush();
+
+            });
+
+        });
+
+        describe('$scope.list.editItem', function(){
+
+            beforeEach(function(){
                 var controller = createController();
             });
 
             it('should be defined and be an object', function(){
-                expect(scope.list.get).toBeDefined();
-                expect(angular.isObject(scope.list.get)).toBe(true);
+                expect(scope.list.editItem).toBeDefined();
+                expect(angular.isObject(scope.list.editItem)).toBe(true);
             });
 
-            describe('$scope.list.get.exec', function(){
+            it('should have a data parameter defined that is null and a showButton parameters defined that is false', function(){
+                expect(scope.list.editItem.data).toBeDefined();
+                expect(scope.list.editItem.data).toBeNull();
+                expect(scope.list.editItem.showButton).toBeDefined();
+                expect(scope.list.editItem.showButton).toBe(false);
+            });
+
+            describe('$scope.list.editItem.init', function(){
+
+                var itemSelected = {
+                    'entity': { 'mock': 'object' },
+                    'isSelected': true
+                };
+                var itemNotSelected = {
+                    'entity': { 'mock': 'object' },
+                    'isSelected': false
+                };
 
                 beforeEach(function(){
                     var controller = createController();
-                    spyOn(scope.list, 'init').and.callThrough();
-                    spyOn(scope.list.get, 'exec').and.callThrough();
-                    spyOn(Restangular, 'all').and.callThrough();
-                    spyOn(scope.list.get, 'success').and.callThrough();
-                    spyOn(scope.list.get, 'fail').and.callThrough();
-                    scope.list.init();
+                    spyOn(scope.list.editItem, 'init').and.callThrough();
                 });
 
                 it('should be defined and be a function', function(){
-                    expect(scope.list.get.exec).toBeDefined();
-                    expect(angular.isFunction(scope.list.get.exec)).toBe(true);
+                    expect(scope.list.editItem.init).toBeDefined();
+                    expect(angular.isFunction(scope.list.editItem.init)).toBe(true);
                 });
 
-                it('should have been called and then called a Restangular getList, which if success calls $scope.list.get.success with the requested data', function(){
+                it('should set scope.list.editItem.data and showButton to true when called rowSelectionChanged with a selected item', function(){
+                    scope.list.editItem.init(itemSelected);
+                    expect(scope.list.editItem.data).toEqual(itemSelected.entity);
+                    expect(scope.list.editItem.showButton).toBe(true);
+                });
 
-                    expect(scope.list.get.exec).toHaveBeenCalled();
-
-                    var mockToRespond = [
-                        {
-                            "id": 0,
-                            "name": "Samual Adams Boston Lagers",
-                            "description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.",
-                            "timeStamp": 1443533486
-                        },
-                        {
-                            "id": 1,
-                            "name": "Stone Ruination",
-                            "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma. Sounds tasty.",
-                            "timeStamp": 1443673531
-                        }
-                    ];
-
-                    $httpBackend.when('GET', 'http://localhost:3000/thingy').respond(mockToRespond);
-                    expect(Restangular.all).toHaveBeenCalledWith('thingy');
-
-                    $httpBackend.flush();
-
-                    expect(scope.list.get.success).toHaveBeenCalledWith(Restangular.restangularizeElement(mockToRespond));
-
+                it('should set scope.list.editItem.data to null and showButton to false when called rowSelectionChanged with a not selected item', function(){
+                    scope.list.editItem.init(itemNotSelected);
+                    expect(scope.list.editItem.data).toBeNull();
+                    expect(scope.list.editItem.showButton).toBe(false);
                 });
 
             });

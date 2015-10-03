@@ -54,6 +54,11 @@ module.exports = function(config){
 			outputFile: 'test-results/junit-results.xml'
 		},
 		ngHtml2JsPreprocessor: {
+			cacheIdFromPath: function(filePath){
+				var cacheId = filePath.strip('app/', '');
+				var cacheId = filePath.strip('foundation-apps/', '');
+				return cacheId;
+			},
 			moduleName: 'singlePageAppExerciseApp.templates'
 		},
 
@@ -112,6 +117,8 @@ module.exports = function(config){
 			'app/components/app.js',
 			'app/components/global/configs.js',
 			'app/components/global/runs.js',
+			'app/modules/edit/controllers.js',
+			'app/modules/edit/services.js',
 			'app/modules/list/controllers.js',
 
 			// App HTML & CSS
@@ -119,9 +126,24 @@ module.exports = function(config){
 			'app/components/content/templates/error.html',
 			'app/components/content/templates/loader.html',
 			'app/components/footer/templates/footer.html',
+			'app/components/foundation-apps/accordion/accordion-item.html',
+			'app/components/foundation-apps/accordion/accordion.html',
+			'app/components/foundation-apps/actionsheet/actionsheet-button.html',
+			'app/components/foundation-apps/actionsheet/actionsheet-content.html',
+			'app/components/foundation-apps/actionsheet/actionsheet.html',
+			'app/components/foundation-apps/modal/modal.html',
+			'app/components/foundation-apps/notification/notification-set.html',
+			'app/components/foundation-apps/notification/notification-static.html',
+			'app/components/foundation-apps/notification/notification.html',
+			'app/components/foundation-apps/offcanvas/offcanvas.html',
+			'app/components/foundation-apps/panel/panel.html',
+			'app/components/foundation-apps/popup/popup.html',
+			'app/components/foundation-apps/tabs/tab-content.html',
+			'app/components/foundation-apps/tabs/tab.html',
+			'app/components/foundation-apps/tabs/tabs.html',
 			'app/modules/edit/templates/edit.html',
 			'app/modules/list/templates/list.html',
-			// endinjector
+			// endinjector:html
 			'.tmp/styles/main.css',
 
 			// Test code
