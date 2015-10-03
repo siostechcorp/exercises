@@ -13,6 +13,7 @@
 
 #### Project
 
+- cd path/to/exercise/single-page-app-exercise/
 - npm install
 - bower install
 
