@@ -201,10 +201,10 @@ describe('ListCtrl', function(){
                 expect(scope.list.grid.columnDefs[1].field).toEqual('description');
 
                 expect(angular.isObject(scope.list.grid.columnDefs[2])).toBe(true);
-                expect(scope.list.grid.columnDefs[2].name).toEqual('updated');
+                expect(scope.list.grid.columnDefs[2].name).toEqual('last time edited');
                 expect(scope.list.grid.columnDefs[2].field).toEqual('timeStamp');
                 expect(scope.list.grid.columnDefs[2].cellFilter).toEqual('date:\'MMM dd, yyyy H:mm:ss\'');
-                expect(scope.list.grid.columnDefs[2].width).toEqual('25%');
+                expect(scope.list.grid.columnDefs[2].width).toEqual('30%');
 
             });
 
