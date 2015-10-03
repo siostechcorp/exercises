@@ -3,9 +3,12 @@
 
 ## Initialization
 
-#### Data Serving
+#### Development
 
 - npm install bower grunt-cli -g
+
+#### Data Serving
+
 - npm install json-server -g
 
 #### Project
