@@ -463,17 +463,7 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>',
         src: '{components,modules}/**/*.html',
         dest: '.tmp/templates.js',
-        // options: {
-        //   url: function(url){
-        //     return url.replace('/foundation-apps', '');
-        //   }
-        // }
-      },
-      // foundation: {
-      //   cwd: 'bower_components/foundation-apps/js/angular',
-      //   src: 'components/**/*.html',
-      //   dest: '.tmp/foundation-templates.js'
-      // }
+      }
     },
 
     // ng-annotate tries to make the code safe for minification automatically
@@ -526,12 +516,12 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
+          src: [ 'generated/*' ]
         }, {
           expand: true,
-          cwd: '.',
-          src: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*',
-          dest: '<%= yeoman.dist %>/fonts'
+          cwd: 'bower_components/angular-ui-grid',
+          src: [ '*.{eot,svg,ttf,woff}' ],
+          dest: '<%= yeoman.dist %>/styles'
         }]
       }
     },

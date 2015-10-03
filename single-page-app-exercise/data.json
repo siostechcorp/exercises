@@ -44,9 +44,9 @@
     },
     {
       "id": 7,
-      "name": "Doubleton",
+      "name": "Doubletons",
       "description": "Ensure a class has only one instance, and provide a global point of access to it.",
-      "timeStamp": 1443859119
+      "timeStamp": 1443901415
     },
     {
       "id": 8,
