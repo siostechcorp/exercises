@@ -4,25 +4,25 @@ angular.module('singlePageAppExerciseApp')
 
 .controller('EditCtrl', function($scope, $edit, $state, $stateParams, $moment, Restangular, NotificationFactory){
 
-	// Define possible error
-	$scope.getError = null;
-	$scope.saveError = null;
+    // Define possible error
+    $scope.getError = null;
+    $scope.saveError = null;
 
-	// Define edit
-	$scope.edit = {
+    // Define edit
+    $scope.edit = {
 
-		// Initialize
-		init: function(){
+        // Initialize
+        init: function(){
 
-			// Get the data item
-			$scope.edit.get();
+            // Get the data item
+            $scope.edit.get();
 
-			// Initialize the notification set
-			$scope.notifSet = new NotificationFactory({
-				position: 'top-right'
-			});
+            // Initialize the notification set
+            $scope.notifSet = new NotificationFactory({
+                position: 'top-right'
+            });
 
-		},
+        },
 
         // UI
         ui: {
@@ -31,49 +31,49 @@ angular.module('singlePageAppExerciseApp')
             showError: false
         },
 
-		// Form
-		form: {
+        // Form
+        form: {
 
-			// Necessities
-			name: null,
-			template: $edit.form.template,
-			model: {
-				master: null,
-				edit: null
-			},
+            // Necessities
+            name: null,
+            template: $edit.form.template,
+            model: {
+                master: null,
+                edit: null
+            },
 
-			// On reset
-			onReset: function(){
-				$scope.edit.form.model.edit = Restangular.copy($scope.edit.form.model.master);
-				$scope.edit.form.name.$setPristine();
-			}
+            // On reset
+            onReset: function(){
+                $scope.edit.form.model.edit = Restangular.copy($scope.edit.form.model.master);
+                $scope.edit.form.name.$setPristine();
+            }
 
-		},
+        },
 
-		// Get
-		get: function(){
+        // Get
+        get: function(){
 
-			// Make call to json file
-			Restangular.one('thingy', $stateParams.itemId).get().then(
+            // Make call to json file
+            Restangular.one('thingy', $stateParams.itemId).get().then(
 
-				// Success
-				function(data){
+                // Success
+                function(data){
 
-					// Modify data timeStamp
-					data.timeStamp = $moment(data.timeStamp * 1000).toDate();
+                    // Modify data timeStamp
+                    data.timeStamp = $moment(data.timeStamp * 1000).toDate();
 
-					// Set data
-	                $scope.edit.form.model.master = Restangular.copy(data);
-	                $scope.edit.form.model.edit = Restangular.copy(data);
+                    // Set data
+                    $scope.edit.form.model.master = Restangular.copy(data);
+                    $scope.edit.form.model.edit = Restangular.copy(data);
 
-	                // Set UI
-	                $scope.edit.ui.showLoader = false;
-	                $scope.edit.ui.showContent = true;
+                    // Set UI
+                    $scope.edit.ui.showLoader = false;
+                    $scope.edit.ui.showContent = true;
 
-				},
+                },
 
-				// Fail
-				function(error){
+                // Fail
+                function(error){
 
                     // Set error
                     $scope.getError = angular.copy(error);
@@ -82,26 +82,26 @@ angular.module('singlePageAppExerciseApp')
                     $scope.edit.ui.showLoader = false;
                     $scope.edit.ui.showError = true;
 
-				}
+                }
 
-			);
+            );
 
-		},
+        },
 
-		// Save
-		save: function(){
+        // Save
+        save: function(){
 
-			// Update timeStamp
-			$scope.edit.form.model.edit.timeStamp = $moment().unix();
+            // Update timeStamp
+            $scope.edit.form.model.edit.timeStamp = $moment().unix();
 
-			// Make call to json file
-			$scope.edit.form.model.edit.patch().then(
+            // Make call to json file
+            $scope.edit.form.model.edit.patch().then(
 
                 // Success
                 function(){
 
-                	// Set form to clean
-                	$scope.edit.form.name.$setPristine();
+                    // Set form to clean
+                    $scope.edit.form.name.$setPristine();
 
                     // Add success notification
                     $scope.notifSet.addNotification({
@@ -111,7 +111,7 @@ angular.module('singlePageAppExerciseApp')
                         autoclose: '3000'
                     });
 
-				},
+                },
 
                 // Fail
                 function(error){
@@ -127,15 +127,15 @@ angular.module('singlePageAppExerciseApp')
                         autoclose: '3000'
                     });
 
-				}
+                }
 
             );
 
-		}
+        }
 
-	};
+    };
 
-	// Initialize edit
-	$scope.edit.init();
+    // Initialize edit
+    $scope.edit.init();
 
 });

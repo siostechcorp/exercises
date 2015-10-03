@@ -7,7 +7,7 @@ describe('EditCtrl', function(){
 	beforeEach(module('singlePageAppExerciseApp.templates'));
 
 	// Necessities
-	var scope, $edit, $stateParams, $moment, Restangular, $httpBackend, NotificationFactory, createController;
+	var scope, $edit, $stateParams, $moment, Restangular, $httpBackend, NotificationFactory, createController, restItem;
 	$stateParams = { itemId: 0 };
 
 	// Initialize controller and mock the scope
@@ -183,6 +183,7 @@ describe('EditCtrl', function(){
                 	.then(function(data){
 
                 		spyOn(Restangular, 'stripRestangular').and.callThrough();
+                		restItem = Restangular.copy(data);
                 		expect(Restangular.stripRestangular(data)).toEqual(mockToRespond);
 
                 		mockToRespond.timeStamp = $moment(data.timeStamp * 1000).toDate();
@@ -205,6 +206,53 @@ describe('EditCtrl', function(){
                 	.finally(done);
 
                 $httpBackend.flush();
+
+			});
+
+		});
+
+		describe('$scope.edit.save', function(){
+
+			beforeEach(function(){
+
+				var controller = createController();
+
+				spyOn(scope.edit, 'save').and.callThrough();
+				spyOn($moment, 'unix').and.callThrough();
+
+			});
+
+			it('should be defined and be a function', function(){
+				expect(scope.edit.save).toBeDefined();
+				expect(angular.isFunction(scope.edit.save)).toBe(true);
+			});
+
+			it('should be called and then call the patch function of the restItem and handle success or failure', function(){
+
+				scope.edit.form.model.edit = restItem;
+				spyOn(scope.edit.form.model.edit, 'patch').and.callThrough();
+				spyOn(scope.notifSet, 'addNotification').and.callThrough();
+
+				scope.edit.form.model.edit.patch()
+					.then(function(){
+						var notifSuccess = {
+	                        title: 'Thingy success!',
+	                        content: 'Your thingy has been successfully updated.',
+	                        color: 'success',
+	                        autoclose: '3000'
+	                    };
+						expect(scope.notifSet.addNotification).toBeCalledWith(notifSuccess);
+					})
+					.catch(function(error){
+						expect(scope.saveError).toEqual(error);
+						var notifFail = {
+	                        title: 'Thingy fail!',
+	                        content: 'Your thingy update failed. Sorry.',
+	                        color: 'alert',
+	                        autoclose: '3000'
+	                    };
+	                    expect(scope.notifSet.addNotification).toBeCalledWith(notifFail);
+					})
 
 			});
 

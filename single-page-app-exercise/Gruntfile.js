@@ -463,11 +463,11 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>',
         src: '{components,modules}/**/*.html',
         dest: '.tmp/templates.js',
-        options: {
-          url: function(url){
-            return url.replace('/foundation-apps', '');
-          }
-        }
+        // options: {
+        //   url: function(url){
+        //     return url.replace('/foundation-apps', '');
+        //   }
+        // }
       },
       // foundation: {
       //   cwd: 'bower_components/foundation-apps/js/angular',
@@ -503,7 +503,7 @@ module.exports = function (grunt) {
           expand: true,
           dot: true,
           cwd: 'bower_components/foundation-apps/js/angular/components',
-          dest: '<%= yeoman.app %>/components/foundation-apps',
+          dest: '<%= yeoman.app %>/components',
           src: [
             '**/*.html'
           ]

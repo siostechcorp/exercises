@@ -2,15 +2,15 @@
   "thingy": [
     {
       "id": 0,
-      "name": "Samual Adams Boston Lager",
+      "name": "Samuel Adams Boston Lager",
       "description": "Samuel Adams Boston Lager® is the best example of the fundamental characteristics of a great beer, offering a full, rich flavor that is both balanced and complex.",
-      "timeStamp": 1443855220
+      "timeStamp": 1443897220
     },
     {
       "id": 1,
       "name": "Stone Ruinations",
       "description": "So called because of the immediate ruinous effect on your palate. 100+ IBUs. Bracingly bitter. Thick, pungent hop aroma. Sounds tasty.",
-      "timeStamp": 1443859059
+      "timeStamp": 1443900995
     },
     {
       "id": 2,
@@ -50,9 +50,9 @@
     },
     {
       "id": 8,
-      "name": "Composite",
+      "name": "Composites",
       "description": "Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.",
-      "timeStamp": 1443533486
+      "timeStamp": 1443889616
     },
     {
       "id": 9,

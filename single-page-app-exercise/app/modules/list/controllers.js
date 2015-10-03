@@ -39,7 +39,7 @@ angular.module('singlePageAppExerciseApp')
             columnDefs: [
                 { name: 'name', field: 'name' },
                 { name: 'description', field: 'description' },
-                { name: 'updated', field: 'timeStamp', cellFilter: 'date:\'MMM dd, yyyy H:mm:ss\'', width: '25%' }
+                { name: 'last time edited', field: 'timeStamp', cellFilter: 'date:\'MMM dd, yyyy H:mm:ss\'', width: '30%' }
             ]
         },
 
