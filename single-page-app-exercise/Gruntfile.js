@@ -38,32 +38,42 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        files: ['<%= yeoman.app %>/{components,modules}/**/*.js'],
+        tasks: ['newer:jshint:all', 'injector:scripts'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
-        files: ['test/spec/{,*/}*.js'],
+        files: ['test/unit/{,*/}*.js', 'test/midway/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
-      styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+      // * Introduced Sass
+      // styles: {
+      //   files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+      //   tasks: ['newer:copy:styles', 'autoprefixer']
+      // },
+      sass: {
+        files: ['<%= yeoman.app %>/{components,modules}/**/*.{scss,sass}'],
+        tasks: ['sass']
+      },
+      html: {
+        files: ['<%= yeoman.app %>/{components,modules}/**/*.html'],
+        tasks: ['ngtemplates']
       },
       gruntfile: {
         files: ['Gruntfile.js']
       },
       livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          // '<%= yeoman.app %>/{,*/}*.html',
+          '.tmp/templates.js',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
+        ],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
       }
     },
 
@@ -72,7 +82,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -84,10 +94,6 @@ module.exports = function (grunt) {
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
-              ),
-              connect().use(
-                '/app/styles',
-                connect.static('./app/styles')
               ),
               connect.static(appConfig.app)
             ];
@@ -127,14 +133,14 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/{components,modules}/**/*.js'
         ]
       },
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
         },
-        src: ['test/spec/{,*/}*.js']
+        src: ['test/unit/{,*/}*.js', 'test/midway/{,*/}*.js']
       }
     },
 
@@ -154,36 +160,45 @@ module.exports = function (grunt) {
     },
 
     // Add vendor prefixed styles
-    autoprefixer: {
-      options: {
-        browsers: ['last 1 version']
-      },
-      server: {
-        options: {
-          map: true,
-        },
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
-      }
-    },
+    // * I don't use this because Compass takes care it for you.
+    // autoprefixer: {
+    //   options: {
+    //     browsers: ['last 1 version']
+    //   },
+    //   server: {
+    //     options: {
+    //       map: true,
+    //     },
+    //     files: [{
+    //       expand: true,
+    //       cwd: '.tmp/styles/',
+    //       src: '{,*/}*.css',
+    //       dest: '.tmp/styles/'
+    //     }]
+    //   },
+    //   dist: {
+    //     files: [{
+    //       expand: true,
+    //       cwd: '.tmp/styles/',
+    //       src: '{,*/}*.css',
+    //       dest: '.tmp/styles/'
+    //     }]
+    //   }
+    // },
 
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath:  /\.\.\//,
+        exclude: [
+          /json3/,
+          /es5-shim/,
+          /font-awesome.css/,
+          /foundation.css/,
+          /foundation.js/,
+          /foundation-apps.css/
+        ]
       },
       test: {
         devDependencies: true,
@@ -192,14 +207,138 @@ module.exports = function (grunt) {
         fileTypes:{
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
-                js: /'(.*\.js)'/gi
-              },
-              replace: {
-                js: '\'{{filePath}}\','
-              }
+            detect: {
+              js: /'(.*\.js)'/gi
+            },
+            replace: {
+              js: '\'{{filePath}}\','
             }
           }
+        },
+        exclude: [
+          /es5-shim/
+        ]
+      },
+      sass: {
+        src: ['<%= yeoman.app %>/components/global/styles/main.scss'],
+        ignorePath: /(\.\.\/){1,4}bower_components\//,
+        exclude: [
+          /bootstrap-sass/
+        ]
+      }
+    },
+
+    // Automatically inject development components into the app
+    injector: {
+      // Inject script components into index.html
+      scripts: {
+        options: {
+          transform: function(filePath){
+            filePath = filePath.replace('/app/', '');
+            filePath = filePath.replace('/.tmp/', '');
+            return '<script src="' + filePath + '"></script>';
+          },
+          starttag: '<!-- injector:js -->',
+          endtag: '<!-- endinjector:js -->'
+        },
+        files: {
+          '<%= yeoman.app %>/index.html': [
+            '{.tmp,<%= yeoman.app %>}/{components,modules}/**/*.js',
+            '!<%= yeoman.app %>/components/app.js',
+            '!<%= yeoman.app %>/components/global/configs.js',
+            '!<%= yeoman.app %>/components/global/runs.js'
+          ]
+        }
+      },
+      // Inject script components into test configuration file
+      scriptsTest: {
+        options: {
+          transform: function(filePath){
+            filePath = filePath.replace('/app/', 'app/');
+            return '\'' + filePath + '\',';
+          },
+          starttag: '// injector:js',
+          endtag: '// endinjector'
+        },
+        files: {
+          'test/karma.conf.js': [
+            '{.tmp,<%= yeoman.app %>}/{components,modules}/**/*.js',
+            '!<%= yeoman.app %>/components/app.js',
+            '!<%= yeoman.app %>/components/global/configs.js',
+            '!<%= yeoman.app %>/components/global/runs.js'
+          ]
+        }
+      },
+      // Inject html components into test configuration file
+      htmlTest: {
+        options: {
+          transform: function(filePath){
+            filePath = filePath.replace('/app/', 'app/');
+            return '\'' + filePath + '\',';
+          },
+          starttag: '// injector:html',
+          endtag: '// endinjector:html'
+        },
+        files: {
+          'test/karma.conf.js': [
+            '<%= yeoman.app %>/{components,modules}/**/*.html'
+          ]
+        }
+      },
+      // Inject _settings.scss components into main.scss
+      settingsSass: {
+        options: {
+          transform: function(filePath){
+            filePath = filePath.replace('/app/components/', '');
+            filePath = filePath.replace('/app/modules/', '');
+            filePath = filePath.replace('_settings.scss', 'settings');
+            return '@import \'' + filePath + '\';';
+          },
+          starttag: '// injector:settings',
+          endtag: '// endinjector:settings'
+        },
+        files: {
+          '<%= yeoman.app %>/components/global/styles/main.scss': [
+            '<%= yeoman.app %>/{components,modules}/**/_settings.scss',
+            '!<%= yeoman.app %>/components/global/styles/_settings.scss'
+          ]
+        }
+      },
+      // Inject _styles.scss components into main.scss
+      stylesSass: {
+        options: {
+          transform: function(filePath){
+            filePath = filePath.replace('/app/components/', '');
+            filePath = filePath.replace('/app/modules/', '');
+            filePath = filePath.replace('_styles.scss', 'styles');
+            return '@import \'' + filePath + '\';';
+          },
+          starttag: '// injector:styles',
+          endtag: '// endinjector:styles'
+        },
+        files: {
+          '<%= yeoman.app %>/components/global/styles/main.scss': [
+            '<%= yeoman.app %>/{components,modules}/**/_styles.scss',
+            '!<%= yeoman.app %>/components/global/styles/_styles.scss'
+          ]
+        }
+      }
+    },
+
+    // Compiles Sass to CSS and generates necessary files if requested
+    sass: {
+      server: {
+        options: {
+          loadPath: [
+            '<%= yeoman.app %>/components',
+            '<%= yeoman.app %>/modules',
+            './bower_components'
+          ],
+          compass: true
+        },
+        files: {
+          '.tmp/styles/main.css': '<%= yeoman.app %>/components/global/styles/main.scss'
+        }
       }
     },
 
@@ -210,7 +349,7 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+          '<%= yeoman.dist %>/fonts/*'
         ]
       }
     },
@@ -317,15 +456,13 @@ module.exports = function (grunt) {
     },
 
     ngtemplates: {
-      dist: {
-        options: {
-          module: 'singlePageAppExerciseApp',
-          htmlmin: '<%= htmlmin.dist.options %>',
-          usemin: 'scripts/scripts.js'
-        },
+      options: {
+        module: 'singlePageAppExerciseApp'
+      },
+      main: {
         cwd: '<%= yeoman.app %>',
-        src: 'views/{,*/}*.html',
-        dest: '.tmp/templateCache.js'
+        src: '{components,modules}/**/*.html',
+        dest: '.tmp/templates.js',
       }
     },
 
@@ -351,6 +488,17 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      foundation: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/foundation-apps/js/angular/components',
+          dest: '<%= yeoman.app %>/components',
+          src: [
+            '**/*.html'
+          ]
+        }]
+      },
       dist: {
         files: [{
           expand: true,
@@ -362,40 +510,37 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'fonts/{,*/}*.*'
           ]
         }, {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
+          src: [ 'generated/*' ]
         }, {
           expand: true,
-          cwd: 'bower_components/bootstrap/dist',
-          src: 'fonts/*',
-          dest: '<%= yeoman.dist %>'
+          cwd: 'bower_components/angular-ui-grid',
+          src: [ '*.{eot,svg,ttf,woff}' ],
+          dest: '<%= yeoman.dist %>/styles'
         }]
-      },
-      styles: {
-        expand: true,
-        cwd: '<%= yeoman.app %>/styles',
-        dest: '.tmp/styles/',
-        src: '{,*/}*.css'
       }
     },
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
+        'sass',
+        'ngtemplates'
       ],
       test: [
-        'copy:styles'
+        'sass',
+        'ngtemplates'
       ],
       dist: [
-        'copy:styles',
+        'sass',
         'imagemin',
-        'svgmin'
+        'svgmin',
+        'ngtemplates'
       ]
     },
 
@@ -408,7 +553,6 @@ module.exports = function (grunt) {
     }
   });
 
-
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -417,8 +561,11 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'injector:settingsSass',
+      'injector:stylesSass',
+      'copy:foundation',
       'concurrent:server',
-      'autoprefixer:server',
+      'injector:scripts',
       'connect:livereload',
       'watch'
     ]);
@@ -432,8 +579,13 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'wiredep',
+    'injector:settingsSass',
+    'injector:stylesSass',
+    'copy:foundation',
     'concurrent:test',
-    'autoprefixer',
+    'injector:scripts',
+    'injector:scriptsTest',
+    'injector:htmlTest',
     'connect:test',
     'karma'
   ]);
@@ -442,9 +594,10 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'injector:settingsSass',
+    'injector:stylesSass',
     'concurrent:dist',
-    'autoprefixer',
-    'ngtemplates',
+    'injector:scripts',
     'concat',
     'ngAnnotate',
     'copy:dist',

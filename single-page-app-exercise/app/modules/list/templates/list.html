@@ -1,0 +1,40 @@
+<div class="grid-frame">
+    <div class="grid-block main-block">
+        <div class="grid-container main-container">
+
+            <!-- Loader -->
+            <content-loader ng-show="list.ui.showLoader"></content-loader>
+            <!-- End Loader -->
+
+            <!-- Content -->
+            <div class="grid-content content" ng-show="list.ui.showContent">
+
+                <!-- Header -->
+                <div class="grid-block">
+                    <div class="grid-content">
+                        <h2 class="medium-margin-bottom">All About the Thingy!</h2>
+                    </div>
+                    <div class="grid-content text-right fx-fade-normal" ng-show="list.editItem.showButton">
+                        <a class="button header-button" ui-sref="edit({ itemId: list.editItem.data.id })">Edit Row</a>
+                    </div>
+                </div>
+                <!-- End Header -->
+
+                <!-- Data Grid -->
+                <div class="grid" ui-grid="list.grid" ui-grid-selection></div>
+                <!-- End Data Grid -->
+
+            </div>
+            <!-- End Content -->
+
+            <!-- Error -->
+            <content-error ng-show="list.ui.showError"></content-error>
+            <!-- End Error -->
+
+            <!-- Footer -->
+            <footer ng-show="list.ui.showContent || list.ui.showError"></footer>
+            <!-- End Footer -->
+
+        </div>
+    </div>
+</div>
