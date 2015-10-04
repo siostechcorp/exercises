@@ -1,0 +1,28 @@
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// Imports
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Normalize
+@import 'foundation-apps/scss/vendor/normalize';
+
+// Settings
+@import 'global/styles/settings';
+// injector:settings
+// endinjector:settings
+
+// Vendor
+@import 'bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';
+@import 'foundation-apps/scss/foundation';
+@import 'compass';
+@import 'compass/support';
+// bower:scss
+@import "font-awesome/scss/font-awesome.scss";
+// endbower
+
+// Styles
+@import 'global/styles/styles';
+// injector:styles
+@import 'content/styles/styles';
+@import 'footer/styles/styles';
+@import 'form/styles/styles';
+// endinjector:styles
