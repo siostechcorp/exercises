@@ -5,8 +5,54 @@
     - Returned when a math operation is done on a value that cannot be coriced into a number (float or integer)
     - Returned when `parseInt()` is called on a non-number or string (or string that does not look like a number)
     - Ex: `expect(3 + undefined).toBeNaN();`
+- Q: What is the difference between == and ===? 
+- Q: What is the difference between a variable that is: null, undefined or undeclared? 
+- Q: How would you go about checking for any of these states? 
+- Q: Explain how `this` works in JavaScript 
+- Q: What is a closure, and how/why would you use one? 
+- Q: Explain how prototype inheritance works 
+- Q: Explain "hoisting". 
+- Q: Explain event delegation 
+- Q: Why is it called a Ternary expression, what does the word "Ternary" indicate? 
+- Q: What is the extent of your experience with Promises and/or their polyfills? 
+- Q: What are the pros and cons of using Promises instead of callbacks? 
+- Q: What is the event loop? 
+- Q: What is the difference between call stack and task queue? 
+- Q: Explain the difference between mutable and immutable objects. 
+- Q: What is an example of an immutable object in JavaScript? 
+- Q: What are the pros and cons of immutability? 
+- Q: How can you achieve immutability in your own code? 
+- Q: Explain the difference between synchronous and asynchronous functions. 
 
-- Q:
+## General Questions:
+- Q: What did you learn yesterday/this week? 
+- Q: What excites or interests you about coding? 
+- Q: What is a recent technical challenge you experienced and how did you solve it? 
+- Q: If you could master one technology this year, what would it be? 
+- Q: What UI, Security, Performance, SEO, Maintainability or Technology considerations do you make while building a web application or site? 
+- Q: Can you describe the difference between progressive enhancement and graceful degradation? 
+- Q: Talk about your preferred development environment. 
+- Q: Describe how you would create a simple slideshow page. 
+
+## Testing Questions:
+- Q: What are some advantages/disadvantages to testing your code? 
+- Q: What tools would you use to test your codes functionality? 
+- Q: What is the difference between a unit test and a functional/integration test? 
+- Q: What is the purpose of a code style linting tool? 
+
+## HTML Questions:
+- Q: What are data- attributes good for? 
+- Q: Why is it generally a good idea to position CSS <link>s between <head></head> and JS <script>s just before </body>? Do you know any exceptions?  
+- Q: 
+- Q: CSS Questions:
+- Q: The 'C' in CSS stands for Cascading. How is priority determined in assigning styles (a few examples)? How can you use this system to your advantage? 
+- Q: Explain how a browser determines what elements match a CSS selector.
+- Q: What is the difference between classes and IDs in CSS? 
+- Q: Explain your understanding of the box model and how you would tell the browser in CSS to render your layout in different box models. 
+- Q: What does '* { box-sizing: border-box; }' do? What are its advantages? 
+- Q: Whats the difference between inline and inline-block? 
+- Q: Describe Floats and how they work. 
+- Q: Describe pseudo-elements and discuss what they are used for. 
 
 ## Build Knowledge
 
