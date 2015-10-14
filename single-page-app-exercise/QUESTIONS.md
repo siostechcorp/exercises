@@ -6,8 +6,6 @@
     - Returned when `parseInt()` is called on a non-number or string (or string that does not look like a number)
     - Ex: `expect(3 + undefined).toBeNaN();`
 
-- Q:
-
 ## Build Knowledge
 
 - Q: What is minification and what is it for?
@@ -16,6 +14,7 @@
    - Obfuscates code.
 
 - Q: This AngularJS code will be minified. What is the bug? How do you fix it?
+
 ```
 angular.module('Ui').controller('MainCtrl',
     function($scope, $filter, $log) {
@@ -28,8 +27,8 @@ angular.module('Ui').controller('MainCtrl',
 );
 ```
 
-    - The dependency injector will fail to find the needed services.
-    - To fix, either use "array notation" or add this.$injector to function.
+ - The dependency injector will fail to find the needed services.
+ - To fix, either use "array notation" or add this.$injector to function.
 
 ```
 angular.module('Ui').controller('MainCtrl', [
@@ -57,8 +56,23 @@ function mainCtrl($scope, $filter, $log) {
 mainCtrl.$injector = [ '$scope', '$filter', '$log' ];
 
 angular.module('Ui').controller('MainCtrl', mainCtrl);
-
 ```
+
+## AngularJS Questions
+
+- Q: What are directives?
+- Q: Explain the digest cycle.
+- Q: What are the differences between service, factory, and provider?
+- Q: What are the differences between Constants and Values?
+- Q: What can you inject at the config stage?
+- Q: Give example of built in directives
+- Q: What is the "Angular" way to add event listeners to elements?
+- Q: How do you set up page routing?
+- Q: What is ngModel and what is for?
+- Q: What is the difference between the compile, link and controller propeties of a directive?
+- Q: What is $scope
+- Q: What are some common pitfalls when building controllers?
+- Q: Describe the code layout of large app. Describe where components go and how to organize it for long term maintance.
 
 ## Technical Knowledge
 
